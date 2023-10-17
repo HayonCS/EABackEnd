@@ -1,0 +1,77 @@
+generates:
+  modules/client/graphql/types.gen.tsx:
+    config:
+      withHooks: true
+      withComponent: false
+      withHOC: false
+      apolloReactHooksImportFrom: "@apollo/client"
+      apolloClientVersion: 3
+    schema:
+      - "modules/graphql-api/schema.graphql"
+      - "modules/client/graphql/schema.graphql"
+    documents:
+      - "modules/client/graphql/*/*.graphql"
+    plugins:
+      - add:
+          content:
+            - 'import * as DateTimeIso from "core/date-time-iso";'
+            - 'import * as DateIso from "core/date-iso";'
+            - 'import * as TimeIso from "core/time-iso";'
+            - 'import { JobStatus, JobIdentifier, Job } from "core/schemas/jobs";'
+            - 'import { UserAppData } from "core/schemas/user-app-data.gen"'
+            - 'import { EmployeeInfoResponse } from "rest-endpoints/employee-directory/employee-directory"'
+            - 'import { ProcessDataExport, RunningNowItem } from "rest-endpoints/mes-process-data/mes-process-data"'
+      - "typescript":
+          scalars:
+            IsoDateTime: DateTimeIso.Type
+            IsoDate: DateIso.Type
+            IsoTime: TimeIso.Type
+            JobStatus: JobStatus
+            Job: Job
+            JobIdentifier: JobIdentifier
+            UserAppData: UserAppData
+            EmployeeInfoResponse: EmployeeInfoResponse
+            ProcessDataExport: ProcessDataExport
+            RunningNowItem: RunningNowItem
+      - "typescript-operations"
+      - "typescript-react-apollo"
+      - "typescript-resolvers":
+          contextType: context#ApiContext
+          defaultMapper: any
+  modules/graphql-api/server-types.gen.ts:
+    schema:
+      - "modules/graphql-api/schema.graphql"
+    plugins:
+      - add:
+          content:
+            - 'import * as DateTimeIso from "core/date-time-iso";'
+            - 'import * as DateIso from "core/date-iso";'
+            - 'import * as TimeIso from "core/time-iso";'
+            - 'import { JobStatus, JobIdentifier, Job } from "core/schemas/jobs";'
+            - 'import { UserAppData } from "core/schemas/user-app-data.gen"'
+            - 'import { EmployeeInfoResponse } from "rest-endpoints/employee-directory/employee-directory"'
+            - 'import { ProcessDataExport, RunningNowItem } from "rest-endpoints/mes-process-data/mes-process-data"'
+      - "typescript":
+          scalars:
+            IsoDateTime: DateTimeIso.Type
+            IsoDate: DateIso.Type
+            IsoTime: TimeIso.Type
+            JobStatus: JobStatus
+            Job: Job
+            JobIdentifier: JobIdentifier
+            UserAppData: UserAppData
+            EmployeeInfoResponse: EmployeeInfoResponse
+            ProcessDataExport: ProcessDataExport
+            RunningNowItem: RunningNowItem
+      - "typescript-operations"
+      - "typescript-resolvers":
+          contextType: context#ApiContext
+          defaultMapper: any
+  modules/client/graphql/introspection-result.gen.json:
+    schema:
+      - "modules/graphql-api/schema.graphql"
+      - "modules/client/graphql/schema.graphql"
+    plugins:
+      - "fragment-matcher":
+    config:
+      apolloClientVersion: 3
