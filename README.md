@@ -22,7 +22,7 @@ ssh-keygen
 Find a path on your host machine where you want the `EABackEnd` checkout folder to exist and run:
 
 ```
-git clone git@ssh.dev.azure.com:v3/gentex/MFG/EABackEnd
+git clone git@github.com:HayonCS/EABackEnd.git
 ```
 
 ## Setup Docker Development Environment
